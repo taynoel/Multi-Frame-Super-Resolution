@@ -12,7 +12,14 @@ Set the training data path configurations through arguments before training:
 ```
 "--trainDataPath" : Training set folder path (For example, D:/dataset/probav_data/train/NIR) 
 ```
-The network consists of three modules (Primary, Stn and Fusion net)(Corresponds to SISRNet, RegNet and FusionNet of DeepSum). Primary Net and Stn Net requires pretraining
+Primary Net and Stn Net requires pretraining, before performing end-to-end training that includes Fusion Net. The training sequence is: Primary net pre-training, Stn Net pre-training and end-to-end training. Types of training can be specied by the following argument:
+```
+"--mode" : Mode of implementation, where
+          "primaryT" for Primary Net pre-training
+          "stnT" for Stn Net pre-training
+          "allT" for end-to-end training
+          "allU" for usage mode
+```
 
 
 

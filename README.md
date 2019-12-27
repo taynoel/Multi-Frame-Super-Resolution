@@ -1,2 +1,18 @@
 # Super-Resolution-PROBA-V-
-Non-sequential multi-frame super-resolution image generation
+## Overview
+Non-sequential multi-frame super-resolution image generation is a method to register and fuse multiple images (normally of low quality) to recover its high resolution counterpart. This work is a PyTorch implementation with close reference to [DeepSum](https://github.com/diegovalsesia/deepsum) on [Proba-V satelite images](https://kelvins.esa.int/proba-v-super-resolution/home/) provided by ESA’s [Advanced Concepts Team](http://www.esa.int/gsp/ACT/index.html).
+
+The network consists of three modules (Primary, Stn and Fusion net)(Corresponds to SISRNet, RegNet and FusionNet of DeepSum), which performs single image recovery, image/feature registration and multi-frame fusion respectively.
+There are some changes, which include replacing Global Dynamic Convolution with spatial transformer network (to support registration given affine transformation, though current net only concentrate on translations), and the inclusion of structural similarity index measure for loss generation.
+
+## Usage
+### Train
+Proba-V dataset can be obtained [here](https://kelvins.esa.int/proba-v-super-resolution/data/)
+Set the training data path configurations through arguments before training:
+```
+"--trainDataPath" : Training set folder path (For example, D:/dataset/probav_data/train/NIR) 
+```
+The network consists of three modules (Primary, Stn and Fusion net)(Corresponds to SISRNet, RegNet and FusionNet of DeepSum). Primary Net and Stn Net requires pretraining
+
+
+

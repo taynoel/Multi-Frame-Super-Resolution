@@ -31,6 +31,13 @@ Trained parameter file "wholeParam.dict" and example images in ./inputImg folder
 #### Output
 
 
+<p float="left">
+  <img src="ref/ZexIm.jpg" width="240" />
+  <img src="ref/mean.jpg" width="240" /> 
+  <img src="ref/predicted.jpg" width="240" />
+  <img src="ref/ZimHR.jpg" width="240" />
+</p>
+From left to right: 1. One of the low resolution images 2. Bicubic upsampling + mean 3. Reconstructed image 4. Gound truth high resolution image
 
  
 

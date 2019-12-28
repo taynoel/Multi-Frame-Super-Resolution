@@ -30,13 +30,13 @@ import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--trainDataPath', type=str, default= 'D:/dataset/probav_data/train/NIRtrain',
+    parser.add_argument('--trainDataPath', type=str, default='E:/Datasets/probav_data/train/NIRtrain',
                         help='Training dataset path')
     parser.add_argument('--outImgSize', type=int, default=384,
                         help='Output image size. Output an Hr image')
-    parser.add_argument('--inImgPatchSize', type=int, default=64,
+    parser.add_argument('--inImgPatchSize', type=int, default=96,
                         help='Input image patch size')
-    parser.add_argument('--batchSize', type=int, default=2,
+    parser.add_argument('--batchSize', type=int, default=6,
                         help='Batch size')
     parser.add_argument('--findBestLoss', type=bool, default=True,
                         help='Find HR and LR image shift difference that gives the best loss')
@@ -44,7 +44,7 @@ def parse_args():
     parser.add_argument('--epochNum', type=int, default=5000,
                         help='Num of epochs')
     
-    parser.add_argument('--mode', type=str, default="allT",
+    parser.add_argument('--mode', type=str, default="allU",
                         help='mode: primaryT,stnT,allT,allU')
     args = parser.parse_args()
     return args
@@ -167,6 +167,33 @@ if __name__=='__main__':
                          torch.save(net.state_dict(),"wholeParam_%d.dict"%_trainCount)
                 except StopIteration:
                     break
+                
+     elif options.mode=="allU":
+         import cv2
+         import random
+         net.loadPretrainedParams("wholeParam.dict")
+         net.eval()
+         
+         inDir="./inputImg"
+         imgNameL=[f for f in os.listdir(inDir) if os.path.isfile(os.path.join(inDir,f))]
+         imgNameL=random.sample(imgNameL,k=9)
+         imgL=[]
+         for fImN in imgNameL:
+             img=Image.open(os.path.join(inDir,fImN)).resize((options.outImgSize,)*2,Image.BICUBIC)
+             img=transforms.ToTensor()(img).type(torch.float32)/65536
+             img=(img-0.1194)/0.0332
+             imgL.append(img)
+         imgL=Variable(torch.stack(imgL,dim=1).unsqueeze(0)).to(device)
+         
+         with torch.no_grad():
+             out=net(imgL)
+         
+         regLrIm=out[1][0,0].cpu().numpy()    
+         cv2.imshow("predicted",(out[2][0,0]*0.0332+0.1194).cpu().numpy()*3)
+         cv2.imshow("mean",(np.mean(regLrIm,axis=0)*0.0332+0.1194)*3)
+         
+         
+         
      elif options.mode=="primaryTesting":
          #!Note: Only for testing!!
         import cv2

@@ -50,7 +50,7 @@ From left to right: 1. One of the low resolution images 2. Bicubic upsampling + 
 
  
 ### Test
-Comparison test is performed between refined and non-refined output. From Proba-V training dataset folder, 156 scenes are selected from NIR, and 149 samples are selected from RED for testing, the remaining are used for training. The scores based on [here](https://kelvins.esa.int/proba-v-super-resolution/scoring/)are as follows:
+Comparison test is performed between refined and non-refined output. From Proba-V training dataset folder, 156 scenes are selected from NIR, and 149 samples are selected from RED for testing, the remaining are used for training. The scores based on [here](https://kelvins.esa.int/proba-v-super-resolution/scoring/) are as follows:
 
 | Measure  | Before Refinement |After Refinement |
 | ------------- | ------------- |------------- |

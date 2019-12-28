@@ -2,7 +2,7 @@
 ## Overview
 Non-sequential multi-frame super-resolution image generation is a method to register and fuse multiple images (normally of low quality) to recover its high resolution counterpart. This work is a PyTorch implementation with close reference to [DeepSum](https://github.com/diegovalsesia/deepsum) on [Proba-V satelite images](https://kelvins.esa.int/proba-v-super-resolution/home/) provided by ESA’s [Advanced Concepts Team](http://www.esa.int/gsp/ACT/index.html).
 
-The network consists of three modules (Primary, Stn and Fusion net)(Corresponds to SISRNet, RegNet and FusionNet of DeepSum), which performs single image recovery, image/feature registration and multi-frame fusion respectively.
+There are two models: without and with refinement net. The networks consist of three modules (Primary, Stn and Fusion net)(Corresponds to SISRNet, RegNet and FusionNet of DeepSum), which performs single image recovery, image/feature registration and multi-frame fusion respectively. The network with refinement net has an additional layer very similar to Fusion net, which takes the residual output from fusion net as input to further refine the output.
 There are some changes, which include replacing Global Dynamic Convolution with spatial transformer network (to support registration given affine transformation, though current net only concentrate on translations), and the inclusion of structural similarity index measure for loss generation.
 
 ## Implementation
@@ -49,5 +49,11 @@ From left to right: 1. One of the low resolution images 2. Bicubic upsampling + 
 From left to right: 1. One of the low resolution images 2. Bicubic upsampling + mean 3. Reconstructed image 4. Gound truth high resolution image
 
  
+### Test
+Comparison test is performed between refined and non-refined output. From Proba-V training dataset folder, 156 scenes are selected from NIR, and 149 samples are selected from RED for testing, the remaining are used for training. The scores based on [here](https://kelvins.esa.int/proba-v-super-resolution/scoring/)are as follows:
 
+| Measure  | Before Refinement |After Refinement |
+| ------------- | ------------- |------------- |
+| NIR  | 0.9861 |0.9819  |
+| RED  | 0.9934  |0.9882  |
 

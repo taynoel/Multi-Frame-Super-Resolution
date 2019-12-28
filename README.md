@@ -8,7 +8,7 @@ There are some changes, which include replacing Global Dynamic Convolution with 
 ## Implementation
 All program is implemented via main.py
 ### Train
-Proba-V dataset can be obtained [here](https://kelvins.esa.int/proba-v-super-resolution/data/)
+Proba-V dataset can be obtained [here](https://kelvins.esa.int/proba-v-super-resolution/data/). 
 Set the training data path configurations through arguments before training:
 ```
 "--trainDataPath" : Training set folder path (For example, D:/dataset/probav_data/train/NIR) 

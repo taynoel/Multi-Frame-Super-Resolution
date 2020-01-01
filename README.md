@@ -3,7 +3,9 @@
 Non-sequential multi-frame super-resolution image generation is a method to register and fuse multiple images (normally of low quality) to recover its high resolution counterpart. This work is a PyTorch implementation with close reference to [DeepSum](https://github.com/diegovalsesia/deepsum) on [Proba-V satelite images](https://kelvins.esa.int/proba-v-super-resolution/home/) provided by ESA’s [Advanced Concepts Team](http://www.esa.int/gsp/ACT/index.html).
 
 There are two models: without and with refinement net. The networks consist of three modules (Primary, Stn and Fusion net)(Corresponds to SISRNet, RegNet and FusionNet of DeepSum), which performs single image recovery, image/feature registration and multi-frame fusion respectively. The network with refinement net has an additional network very similar to Fusion net, which takes the residual output from fusion net as input to further refine the output.
-There are some changes, which include replacing Global Dynamic Convolution with spatial transformer network (to support registration given affine transformation, though current net only concentrate on translations), and the inclusion of structural similarity index measure for loss generation.
+There are some changes, which include replacing Global Dynamic Convolution with spatial transformer network (to support registration given affine transformation, though current net only concentrate on translations), and the inclusion of structural similarity index measure for loss generation. This modified network is denoted SRNet1.
+
+SRNet1 is improved by changing Primary Net to a two stream network (with lateral connection in between), where one stream concentrates on features from image with the original size (which is large), but with low channel number, whereas the other stream down samples the image to extract much global features and with higher channel number. This net is denoted as SRNet2.
 
 ## Implementation
 All program is implemented via main.py
@@ -33,14 +35,14 @@ Comparison test is performed between refined and non-refined output. From Proba-
 
 Table 1: Result for SRNet1
 
-| Measure  | Before Refinement |After Refinement |
+| Dataset Group  | Before Refinement |After Refinement |
 | ------------- | ------------- |------------- |
 | NIR  | 0.9861 |0.9819  |
 | RED  | 0.9934  |0.9882  |
 
 Table2: Result for SRNet2
 
-| Measure  | Before Refinement |After Refinement |
+| Dataset Group  | Before Refinement |After Refinement |
 | ------------- | ------------- |------------- |
 | NIR  | 0.9724 |0.9710  |
 | RED  | 0.9819  |0.9783  |

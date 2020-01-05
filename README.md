@@ -44,11 +44,11 @@ python main.py --trainDataPath D:/dataset/probav_data/train/NIRtrain --batchSize
 which will generate wholeParam_xx.dict files.
 
 ### Usage
-One can use the trained network to perform multi-frame super-resolution bu first placing images in ./inputImg folder (minimum 9), and execute main.py with argument 
+One can use the trained network to perform multi-frame super-resolution by first placing images in ./inputImg folder (minimum 9), and execute main.py with argument 
 ```
 "--mode" = "allU"
 ```
-Trained parameter file "wholeParam.dict" and example images in ./inputImg folder are included.
+Trained parameter file "wholeParam.dict" and example images in ./inputImg folder are included in the git.
 
 ### Test
 Comparison test is performed between refined and non-refined output. From Proba-V training dataset folder, 156 scenes are selected from NIR, and 149 samples are selected from RED for testing, the remaining are used for training. The scores based on [here](https://kelvins.esa.int/proba-v-super-resolution/scoring/) are as follows:

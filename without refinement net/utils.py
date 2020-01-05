@@ -3,7 +3,7 @@ import torch
 def structuralSimilarityGrayScale(imgSet1,imgSet2,windowSize=8,stride=8):
         """
         Perform structural similarity index measurement between gray-scale image set imgSet1 and imgSet2
-        Each input tensor (imgSet1,imgSet2) has a shape of (batchNum,chan=1,h,w)
+        Each input tensor (imgSet1 ,imgSet2) has a shape of (batchNum,chan=1,h,w)
         outputs ssim as (batchNum) tensor 
         """
         imgSet=torch.cat([imgSet1,imgSet2],dim=1)#(batch,chan=2,h,w)

@@ -8,7 +8,8 @@ There are some changes, which include replacing Global Dynamic Convolution with 
 SRNet1 is improved by changing Primary Net to a two stream network (with lateral connection in between), where one stream concentrates on features from image with the original size (which is large), but with low channel number, whereas the other stream down samples the image to extract much global features and with higher channel number. This net is denoted as SRNet2.
 
 ## Implementation
-All program is implemented via main.py
+### Require
+PyTorch (ver 1.0.0 used), TorchVision (ver 0.2.1 used), Python-OpenCV (ver 4.1.0 used)
 ### Train
 Proba-V dataset can be obtained [here](https://kelvins.esa.int/proba-v-super-resolution/data/). 
 Set the training data path configurations through arguments before training:
